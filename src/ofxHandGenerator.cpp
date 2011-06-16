@@ -47,7 +47,7 @@ void ofxHandGenerator::gestureRecognized(gesture & last_gesture) {
 										 pow( last_gesture.gesture_position.y-handPos.Y, 2 ) +
 										 pow( last_gesture.gesture_position.z-handPos.Z, 2 ) );
 			
-			printf("Hand dist: %f pos: [%d, %d, %d]\n", distanceToHand, (int)handPos.X, (int)handPos.Y, (int)handPos.Z);
+			//printf("Hand dist: %f pos: [%d, %d, %d]\n", distanceToHand, (int)handPos.X, (int)handPos.Y, (int)handPos.Z);
 			
 			// if the hand is within the min distance then don't track it
 			if (distanceToHand < min_distance) {	
@@ -80,6 +80,7 @@ void XN_CALLBACK_TYPE HandCreate(
 	printf("New Hand: %d\n", nID);
 	ofxHandGenerator* gest = static_cast<ofxHandGenerator*>(pCookie);
 	gest->newHand(nID, pPosition);
+    
 }
 
 // Callback: A Hand has moved
@@ -299,6 +300,8 @@ void ofxHandGenerator::newHand(XnUserID nID, const XnPoint3D* pPosition)
 		{
 			hand->isBeingTracked = true;
 			hand->nID = nID;
+            hand->handID = getFirstFreeID();
+            correspID.insert(pair<int, int>(hand->nID, hand->handID));
 			hand->update(pPosition, isFiltering, true);
 			found_hands++;
 			// Stop getting gestures?
@@ -337,7 +340,29 @@ void ofxHandGenerator::destroyHand(XnUserID nID)
 			found_hands--;
 			// Resume grabbing gestures ?
 			//this->addGestures();
+            
+            correspID.erase(hand->nID);
+            
+            
 			return;
 		}
 	}
+}
+
+
+int ofxHandGenerator::getFirstFreeID(){
+    map<int, int>::iterator it = correspID.begin() ;
+    map<int, int>::iterator itEnd = correspID.end() ;
+    int id = 1 ; 
+    while (it != itEnd){
+        if (it->second == id){
+            id ++;
+            it = correspID.begin();
+        }
+        else{
+            it ++ ;
+        }
+    }
+    
+    return id ;
 }

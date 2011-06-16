@@ -26,6 +26,7 @@ public:
 	
 	bool				isBeingTracked;
 	XnUserID			nID;
+    int                 handID ;
 	XnPoint3D			rawPos;
 	ofPoint				projectPos;		// position on screen
 	ofPoint				progPos;		// position from 0.0 to 1.0

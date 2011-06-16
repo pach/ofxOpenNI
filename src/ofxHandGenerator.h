@@ -50,6 +50,7 @@ public:
 	std::vector<ofxTrackedHand*>	tracked_hands;		// TODO: make this an array!
 
 	xn::HandsGenerator&				getXnHandsGenerator();
+	ofxGestureGenerator			gesture_generator;
 	
 private:
 	
@@ -61,7 +62,7 @@ private:
 	xn::DepthGenerator			depth_generator;
 	xn::HandsGenerator			hands_generator;
 	
-	ofxGestureGenerator			gesture_generator;
+//	ofxGestureGenerator			gesture_generator;
 	void						gestureRecognized(gesture & last_gesture);
 	
 	int							min_time;
@@ -71,7 +72,10 @@ private:
 	float						smoothing_factor;
 	int							max_hands;
 	int							min_distance;
-	
+    
+    map<int, int> correspID ;
+    
+    int getFirstFreeID();
 	
 };
 
