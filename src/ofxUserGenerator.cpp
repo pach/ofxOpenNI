@@ -452,17 +452,23 @@ xn::UserGenerator& ofxUserGenerator::getXnUserGenerator() {
 
 
 void ofxUserGenerator::recordCalibrationData(string filename){
-    string addr = "skelData/";
-    addr += filename ; 
-    addr += ".bin";
     
     // si plusieurs user tracké - ajoute id
     if (getNumberOfTrackedUsers() == 1){
-        user_generator.GetSkeletonCap().SaveCalibrationDataToFile (getTrackedUser(0)->id, addr.data());
+        filename += ".bin";
+        //user_generator.GetSkeletonCap().SaveCalibrationDataToFile ((XnUserID)getTrackedUser(0)->id, (const XnChar *)filename.c_str());
     }
     else{
         for (int i=0; i < getNumberOfTrackedUsers(); i++) {
-
+            string addr = filename;
+            addr += "_";
+            addr += ofToString(i);
+            addr += ".bin";
+            //user_generator.GetSkeletonCap().SaveCalibrationDataToFile (getTrackedUser(i)->id, (const XnChar *) addr.data());
         }
     }
+}
+
+void ofxUserGenerator::reloadCalibrationData(int idUser, string filename){
+    user_generator.GetSkeletonCap().LoadCalibrationDataFromFile(getTrackedUser(idUser)->id, filename.data());
 }

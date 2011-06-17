@@ -45,7 +45,7 @@ public:
 	int					getHeight();
     
     void                recordCalibrationData(string filename);
-    void                reloadCalibrationData(string filename);	
+    void                reloadCalibrationData(int idUser, string filename);	
 private:
 	
 	void				drawUser(int nUserNum);
