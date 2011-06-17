@@ -15,6 +15,8 @@ public:
 	void draw(float x=0, float y=0, float w=640, float h=480);
 	
 	xn::ImageGenerator& getXnImageGenerator();
+    
+    ofColor getPixelAt(int x, int y);
 	
 private:
 	
@@ -23,6 +25,8 @@ private:
 	xn::ImageGenerator	image_generator;
 	ofTexture			image_texture;
 	unsigned char *		image_pixels;
+    
+    int w, h ;
 	
 };
 

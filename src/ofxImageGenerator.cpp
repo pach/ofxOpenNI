@@ -15,7 +15,9 @@ void ofxImageGenerator::generateTexture() {
 	const XnUInt8* pImage = imd.Data();
 	
 	memcpy(image_pixels, pImage, sizeof(unsigned char) * imd.XRes() * imd.YRes() * 3);
-	image_texture.loadData(image_pixels,imd.XRes(), imd.YRes(), GL_RGB);		
+	image_texture.loadData(image_pixels,imd.XRes(), imd.YRes(), GL_RGB);	
+	w = imd.XRes();
+    h = imd.YRes();
 }
 
 void ofxImageGenerator::update() {
@@ -66,6 +68,14 @@ bool ofxImageGenerator::setup(ofxOpenNIContext* pContext) {
 	
 	return true;
 	
+}
+
+ofColor ofxImageGenerator::getPixelAt(int x, int y){
+    ofColor color ;
+    color.r = image_pixels[y*w*3+x];
+    color.g = image_pixels[y*w*3+x+1];
+    color.b = image_pixels[y*w*3+x+2];
+    return color ;
 }
 
 xn::ImageGenerator& ofxImageGenerator::getXnImageGenerator() {
