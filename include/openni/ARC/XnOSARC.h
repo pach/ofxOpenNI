@@ -28,9 +28,7 @@
 #include <sys/types.h>
 #include <stdarg.h>
 #include <time.h>
-#include <pthread.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include <stdio.h>
 
 //---------------------------------------------------------------------------
 // Files
@@ -39,10 +37,10 @@
 typedef	void* XN_HANDLE;
 
 /** A file handle type. */ 
-typedef XnInt XN_FILE_HANDLE;
+typedef FILE* XN_FILE_HANDLE;
 
 /** The value of an invalid file handle. */
-#define XN_INVALID_FILE_HANDLE -1
+#define XN_INVALID_FILE_HANDLE NULL
 
 /** A string that specifies the current directory. */ 
 #define XN_FILE_LOCAL_DIR "./"
@@ -85,13 +83,13 @@ typedef	void* XN_LIB_HANDLE;
 // Threads
 //---------------------------------------------------------------------------
 /** A Xiron thread type. */ 
-typedef	pthread_t* XN_THREAD_HANDLE;
+typedef	int XN_THREAD_HANDLE;
 
 /** A Xiron thread ID. */ 
-typedef	pthread_t XN_THREAD_ID;
+typedef	int XN_THREAD_ID;
 
 /** A Xiron process ID. */
-typedef pid_t XN_PROCESS_ID;
+typedef int XN_PROCESS_ID;
 
 /** The thread entry point function prototype. */
 typedef void* (*XN_THREAD_PROC_PROTO)(void* arg);
@@ -116,7 +114,7 @@ typedef	void* XN_THREAD_PARAM;
 //---------------------------------------------------------------------------
 /** A Xiron mutex type. */
 struct XnMutex;
-typedef	XnMutex* XN_MUTEX_HANDLE;
+typedef	struct XnMutex* XN_MUTEX_HANDLE;
 
 //---------------------------------------------------------------------------
 // Critical Sections
@@ -127,18 +125,9 @@ typedef	XN_MUTEX_HANDLE XN_CRITICAL_SECTION_HANDLE;
 //---------------------------------------------------------------------------
 // Events
 //---------------------------------------------------------------------------
-/** A Xiron event type. */ 
-typedef struct
-{
-	int NamedSem;
-	pthread_cond_t cond;
-	pthread_mutex_t mutex;
-	XnBool bSignaled;
-	XnBool bManualReset;
-	XnBool bNamed;
-	XnChar csSemFileName[XN_FILE_MAX_PATH];
-	int hSemFile;
-} _XnEvent, *XN_EVENT_HANDLE;
+/** A Xiron event type. */
+struct _XnEvent;
+typedef struct _XnEvent *XN_EVENT_HANDLE;
 
 //---------------------------------------------------------------------------
 // Semaphores
@@ -153,8 +142,7 @@ typedef struct _XnSemaphore *XN_SEMAPHORE_HANDLE;
 /** The Xiron OS timer structure. */ 
 typedef struct XnOSTimer 
 {
-	struct timespec tStartTime;
-	XnBool bHighRes;
+	XnUInt64 nStartTick;
 } XnOSTimer;
 
 //---------------------------------------------------------------------------
@@ -170,5 +158,9 @@ typedef struct XnOSTimer
 #define XN_PREPARE_VAR32_IN_BUFFER(var) (var)
 #define XN_PREPARE_VAR64_IN_BUFFER(var) (var)
 #define XN_PREPARE_VAR_FLOAT_IN_BUFFER(var) (var)
+
+#define XN_IMPLEMENT_OS \
+	printf("Not Implemented: %s at %s(%u)\n", __FUNCTION__, __FILE__, __LINE__); \
+	_brk();
 
 #endif //_XN_OSLINUX_X86_H_

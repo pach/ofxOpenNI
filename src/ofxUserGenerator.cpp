@@ -449,3 +449,20 @@ bool ofxUserGenerator::needsPoseForCalibration() {
 xn::UserGenerator& ofxUserGenerator::getXnUserGenerator() {
 	return user_generator;
 }
+
+
+void ofxUserGenerator::recordCalibrationData(string filename){
+    string addr = "skelData/";
+    addr += filename ; 
+    addr += ".bin";
+    
+    // si plusieurs user tracké - ajoute id
+    if (getNumberOfTrackedUsers() == 1){
+        user_generator.GetSkeletonCap().SaveCalibrationDataToFile (getTrackedUser(0)->id, addr.data());
+    }
+    else{
+        for (int i=0; i < getNumberOfTrackedUsers(); i++) {
+
+        }
+    }
+}

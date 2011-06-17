@@ -19,32 +19,29 @@
 *  along with OpenNI. If not, see <http://www.gnu.org/licenses/>.           *
 *                                                                           *
 ****************************************************************************/
-#ifndef __XN_OPEN_NI_H__
-#define __XN_OPEN_NI_H__
+#ifndef __XNOSMEMORY_H__
+#define __XNOSMEMORY_H__
 
-//---------------------------------------------------------------------------
-// Includes
-//---------------------------------------------------------------------------
-#include "XnTypes.h"
-#include "XnContext.h"
-#include "XnLicensing.h"
-#include "XnUtils.h"
-#include "XnPrdNodeInfo.h"
-#include "XnQueries.h"
-#include "XnPrdNode.h"
-#include "XnEnumerationErrors.h"
+#include "XnPlatform.h"
 
-#include "XnVersion.h"
-#include "XnStatusCodes.h"
-#include "XnStatus.h"
+// Memory
+XN_C_API void* xnOSMalloc(const XnSizeT nAllocSize);
+XN_C_API void* xnOSMallocAligned(const XnSizeT nAllocSize, const XnSizeT nAlignment);
+XN_C_API void* xnOSCalloc(const XnSizeT nAllocNum, const XnSizeT nAllocSize);
+XN_C_API void* xnOSCallocAligned(const XnSizeT nAllocNum, const XnSizeT nAllocSize, const XnSizeT nAlignment);
+XN_C_API void* xnOSRealloc(void* pMemory, const XnSizeT nAllocSize);
+XN_C_API void* xnOSReallocAligned(void* pMemory, const XnSizeT nAllocSize, const XnSizeT nAlignment);
+XN_C_API void* xnOSRecalloc(void* pMemory, const XnSizeT nAllocNum, const XnSizeT nAllocSize);
+XN_C_API void xnOSFree(const void* pMemBlock);
+XN_C_API void xnOSFreeAligned(const void* pMemBlock);
+XN_C_API void xnOSMemCopy(void* pDest, const void* pSource, XnSizeT nCount);
+XN_C_API XnInt32 xnOSMemCmp(const void *pBuf1, const void *pBuf2, XnSizeT nCount);
+XN_C_API void xnOSMemSet(void* pDest, XnUInt8 nValue, XnSizeT nCount);
+XN_C_API void xnOSMemMove(void* pDest, const void* pSource, XnSizeT nCount);
+XN_C_API XnUInt64 xnOSEndianSwapUINT64(XnUInt64 nValue);
+XN_C_API XnUInt32 xnOSEndianSwapUINT32(XnUInt32 nValue);
+XN_C_API XnUInt16 xnOSEndianSwapUINT16(XnUInt16 nValue);
+XN_C_API XnFloat xnOSEndianSwapFLOAT(XnFloat fValue);
 
-//---------------------------------------------------------------------------
-// Defines
-//---------------------------------------------------------------------------
-#define XN_MASK_OPEN_NI "OpenNI"
 
-//---------------------------------------------------------------------------
-// Enumeration and Creations
-//---------------------------------------------------------------------------
-
-#endif // __XN_OPEN_NI_H__
+#endif // __XNOSMEMORY_H__

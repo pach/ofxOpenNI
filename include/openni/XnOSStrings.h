@@ -19,32 +19,27 @@
 *  along with OpenNI. If not, see <http://www.gnu.org/licenses/>.           *
 *                                                                           *
 ****************************************************************************/
-#ifndef __XN_OPEN_NI_H__
-#define __XN_OPEN_NI_H__
+#ifndef __XNOSSTRINGS_H__
+#define __XNOSSTRINGS_H__
 
-//---------------------------------------------------------------------------
-// Includes
-//---------------------------------------------------------------------------
-#include "XnTypes.h"
-#include "XnContext.h"
-#include "XnLicensing.h"
-#include "XnUtils.h"
-#include "XnPrdNodeInfo.h"
-#include "XnQueries.h"
-#include "XnPrdNode.h"
-#include "XnEnumerationErrors.h"
+#include "XnPlatform.h"
 
-#include "XnVersion.h"
-#include "XnStatusCodes.h"
-#include "XnStatus.h"
+// Strings
+XN_C_API XnStatus xnOSStrPrefix(const XnChar* cpPrefixString, XnChar* cpDestString, const XnUInt32 nDestLength);
+XN_C_API XnStatus xnOSStrAppend(XnChar* cpDestString, const XnChar* cpSrcString, const XnUInt32 nDestLength);
+XN_C_API XnStatus xnOSStrCopy(XnChar* cpDestString, const XnChar* cpSrcString, const XnUInt32 nDestLength);
+XN_C_API XnUInt32 xnOSStrLen(const XnChar* cpStr);
+XN_C_API XnStatus xnOSStrNCopy(XnChar* cpDestString, const XnChar* cpSrcString, const XnUInt32 nCopyLength, const XnUInt32 nDestLength);
+XN_C_API XnStatus xnOSStrCRC32(const XnChar* cpString, XnUInt32* nCRC32);
+XN_C_API XnStatus xnOSStrNCRC32(XnUChar* cpBuffer, XnUInt32 nBufferSize, XnUInt32* nCRC32);
+XN_C_API XnStatus xnOSStrFormat(XnChar* cpDestString, const XnUInt32 nDestLength, XnUInt32* pnCharsWritten, const XnChar* cpFormat, ...);
+XN_C_API XnStatus xnOSStrFormatV(XnChar* cpDestString, const XnUInt32 nDestLength, XnUInt32* pnCharsWritten, const XnChar* cpFormat, va_list args);
+XN_C_API XnInt32  xnOSStrCmp(const XnChar* cpFirstString, const XnChar* cpSecondString);
+XN_C_API XnInt32  xnOSStrCaseCmp(const XnChar* cpFirstString, const XnChar* cpSecondString);
+XN_C_API void     xnOSItoA(XnInt32 nValue, XnChar* cpStr, XnInt32 nBase);
+/** Should be freed using @ref xnOSFree() */
+XN_C_API XnChar* xnOSStrDup(const XnChar* strSource);
+XN_C_API XnStatus xnOSExpandEnvironmentStrings(const XnChar* strSrc, XnChar* strDest, XnUInt32 nDestSize);
 
-//---------------------------------------------------------------------------
-// Defines
-//---------------------------------------------------------------------------
-#define XN_MASK_OPEN_NI "OpenNI"
 
-//---------------------------------------------------------------------------
-// Enumeration and Creations
-//---------------------------------------------------------------------------
-
-#endif // __XN_OPEN_NI_H__
+#endif // __XNOSSTRINGS_H__

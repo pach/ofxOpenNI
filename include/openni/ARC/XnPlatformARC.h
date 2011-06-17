@@ -19,8 +19,8 @@
 *  along with OpenNI. If not, see <http://www.gnu.org/licenses/>.           *
 *                                                                           *
 ****************************************************************************/
-#ifndef _XN_PLATFORM_LINUX_X86_H_
-#define _XN_PLATFORM_LINUX_X86_H_
+#ifndef _XN_PLATFORM_ARC_H_
+#define _XN_PLATFORM_ARC_H_
 
 //---------------------------------------------------------------------------
 // Prerequisites
@@ -38,15 +38,15 @@
 //---------------------------------------------------------------------------
 // Platform Basic Definition
 //---------------------------------------------------------------------------
-#define XN_PLATFORM XN_PLATFORM_LINUX_X86
-#define XN_PLATFORM_STRING "Linux-x86"
+#define XN_PLATFORM XN_PLATFORM_ARC
+#define XN_PLATFORM_STRING "ARC"
 
 //---------------------------------------------------------------------------
 // Platform Capabilities
 //---------------------------------------------------------------------------
 #define XN_PLATFORM_ENDIAN_TYPE XN_PLATFORM_IS_LITTLE_ENDIAN
-#define XN_PLATFORM_VAARGS_TYPE XN_PLATFORM_USE_GCC_VAARGS_STYLE
-#define XN_PLATFORM_SUPPORTS_DYNAMIC_LIBS 1
+#define XN_PLATFORM_VAARGS_TYPE XN_PLATFORM_USE_ARC_VAARGS_STYLE
+#define XN_PLATFORM_SUPPORTS_DYNAMIC_LIBS 0
 
 //---------------------------------------------------------------------------
 // Basic Types
@@ -132,7 +132,7 @@ typedef size_t				XnSizeT;
 #define XN_DEFAULT_MEM_ALIGN 16
 
 /** The thread static declarator (using TLS). */
-#define XN_THREAD_STATIC __thread
+#define XN_THREAD_STATIC __declspec(thread)
 
 //---------------------------------------------------------------------------
 // Files
@@ -169,16 +169,18 @@ typedef size_t				XnSizeT;
 // API Export/Import Macros
 //---------------------------------------------------------------------------
 /** Indicates an exported shared library function. */ 
-#define XN_API_EXPORT __attribute__ ((visibility("default")))
+#define XN_API_EXPORT
 	
 /** Indicates an imported shared library function. */ 
 #define XN_API_IMPORT 
 
 /** Indicates a deprecated function */
-#define XN_API_DEPRECATED(msg) __attribute__((deprecated))
+#define XN_API_DEPRECATED(msg)
 
 /** Declares a global shared library export function. */ 
 #define XN_API_EXPORT_INIT()
 
-#endif //_XN_PLATFORM_LINUX_X86_H_
+#define XN_DEPRECATED_WARNING_IDS 1
+
+#endif //_XN_PLATFORM_ARC_H_
 

@@ -43,7 +43,9 @@ public:
 	
 	int					getWidth();
 	int					getHeight();
-	
+    
+    void                recordCalibrationData(string filename);
+    void                reloadCalibrationData(string filename);	
 private:
 	
 	void				drawUser(int nUserNum);

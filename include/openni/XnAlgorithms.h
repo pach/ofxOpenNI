@@ -19,32 +19,63 @@
 *  along with OpenNI. If not, see <http://www.gnu.org/licenses/>.           *
 *                                                                           *
 ****************************************************************************/
-#ifndef __XN_OPEN_NI_H__
-#define __XN_OPEN_NI_H__
+#ifndef __XN_ALGORITHMS_H__
+#define __XN_ALGORITHMS_H__
 
 //---------------------------------------------------------------------------
 // Includes
 //---------------------------------------------------------------------------
-#include "XnTypes.h"
-#include "XnContext.h"
-#include "XnLicensing.h"
-#include "XnUtils.h"
-#include "XnPrdNodeInfo.h"
-#include "XnQueries.h"
-#include "XnPrdNode.h"
-#include "XnEnumerationErrors.h"
-
-#include "XnVersion.h"
-#include "XnStatusCodes.h"
-#include "XnStatus.h"
+#include <XnPlatform.h>
 
 //---------------------------------------------------------------------------
-// Defines
+// Types
 //---------------------------------------------------------------------------
-#define XN_MASK_OPEN_NI "OpenNI"
+template<class T>
+XnBool DefaultComparer(const T& arg1, const T& arg2)
+{
+	return arg1 < arg2;
+}
 
-//---------------------------------------------------------------------------
-// Enumeration and Creations
-//---------------------------------------------------------------------------
+class XnAlgorithms
+{
+public:
+	template<class T, class Comparer>
+	static void BubbleSort(T elements[], XnUInt32 nCount, Comparer comp)
+	{
+		XnUInt32 n = nCount;
+		XnBool bSwapped;
+		T temp;
 
-#endif // __XN_OPEN_NI_H__
+		if (nCount == 0)
+			return;
+
+		do
+		{
+			bSwapped = FALSE;
+			for (XnUInt32 i = 0; i < n - 1; ++i)
+			{
+				if (!comp(elements[i], elements[i+1]))
+				{
+					// swap
+					temp = elements[i];
+					elements[i] = elements[i+1];
+					elements[i+1] = temp;
+
+					bSwapped = TRUE;
+				}
+			}
+
+			n -= 1;
+
+		} while (bSwapped);
+	}
+
+	template<class T>
+	static void BubbleSort(T elements[], XnUInt32 nCount)
+	{
+		BubbleSort(elements, nCount, DefaultComparer);
+	}
+
+};
+
+#endif // __XN_ALGORITHMS_H__
